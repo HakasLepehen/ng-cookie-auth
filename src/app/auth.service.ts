@@ -42,4 +42,11 @@ export class AuthService {
       switchMap(() => this.fetchUser()),
     );
   }
+
+  logout() {
+    this.http.get<any>(`${API_URL}/logout`).subscribe(() => {
+      this.user.set(null);
+      this.router.navigateByUrl('/login');
+    });
+  }
 }

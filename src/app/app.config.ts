@@ -12,6 +12,7 @@ import {isPlatformServer} from '@angular/common';
 import {firstValueFrom} from 'rxjs';
 import {apiInterceptor} from './api-interceptor';
 import {API_URL} from './constants';
+import {authInterceptor} from './auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,7 +26,7 @@ export const appConfig: ApplicationConfig = {
       return firstValueFrom(http.get(`${url}csrf-token`));
     }),
     provideHttpClient(
-      withInterceptors([apiInterceptor])
+      withInterceptors([apiInterceptor, authInterceptor])
     ),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
